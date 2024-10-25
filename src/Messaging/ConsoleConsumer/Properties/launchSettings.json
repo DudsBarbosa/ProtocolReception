@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ConsoleConsumer": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
