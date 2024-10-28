@@ -10,6 +10,8 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/Messaging/ConsolePublisher/ConsolePublisher.csproj", "src/Messaging/ConsolePublisher/"]
+COPY ["src/Infrastructure/ProtocolReception.Infrastructure.csproj", "src/Infrastructure/"]
+COPY ["src/Domain/ProtocolReception.ApplicationCore.csproj", "src/Domain/"]
 RUN dotnet restore "./src/Messaging/ConsolePublisher/ConsolePublisher.csproj"
 COPY . .
 WORKDIR "/src/src/Messaging/ConsolePublisher"

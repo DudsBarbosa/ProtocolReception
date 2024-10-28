@@ -28,17 +28,16 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    //"Container (Dockerfile)": {
-    //  "commandName": "Docker",
-    //  "launchBrowser": true,
-    //  "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
-    //  "environmentVariables": {
-    //    "ASPNETCORE_URLS": "https://+:443;http://+:80",
-    //    "ConnectionStrings:DefaultConnection": "Server=host.docker.internal,1433;Database=Documents;Trusted_Connection=True;MultipleActiveResultSets=True;Encrypt=False;TrustServerCertificate=True"
-    //  },
-    //  "publishAllPorts": true,
-    //  "useSSL": true
-    //}
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
+      "environmentVariables": {
+        "ASPNETCORE_URLS": "https://+:443;http://+:80"
+      },
+      "publishAllPorts": true,
+      "useSSL": true
+    }
   },
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "iisSettings": {

@@ -12,9 +12,10 @@ namespace ProtocolReception.Infrastructure.Repositories
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task AddAsync(string message)
+        public async Task AddAsync(ProtocolLog protocolLog)
         {
-            await _context.ProtocolsLog.AddAsync(new ProtocolLog { Message = message });
+            await _context.ProtocolsLog.AddAsync(protocolLog);
+            _context.SaveChanges();
         }
     }
 }

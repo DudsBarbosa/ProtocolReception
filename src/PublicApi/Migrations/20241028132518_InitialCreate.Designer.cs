@@ -12,8 +12,8 @@ using ProtocolReception.Infrastructure.Repositories;
 namespace ProtocolReception.PublicApi.Migrations
 {
     [DbContext(typeof(ProtocolContext))]
-    [Migration("20241025175425_AddProtocolLog")]
-    partial class AddProtocolLog
+    [Migration("20241028132518_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

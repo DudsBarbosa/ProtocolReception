@@ -5,7 +5,7 @@ namespace ProtocolReception.ApplicationCore.Entities
     public class Protocol
     {
         [JsonIgnore]
-        public int Id { get; }
+        public int Id { get; set; }
         [JsonProperty("number")]
         public int Number { get; set; }
         [JsonProperty("copy")]
