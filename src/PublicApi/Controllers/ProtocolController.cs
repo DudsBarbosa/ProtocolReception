@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProtocolReception.ApplicationCore.Entities;
-using ProtocolReception.ApplicationCore.Services;
+using ProtocolReception.ApplicationCore.UseCases;
 
 namespace ProtocolReception.PublicApi.Controllers
 {

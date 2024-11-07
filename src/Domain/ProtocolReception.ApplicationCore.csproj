@@ -27,7 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Security\" />
-    <Folder Include="Services\Security\" />
+    <Folder Include="UseCases\Security\" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 using Moq;
 using ProtocolReception.ApplicationCore.Entities;
 using ProtocolReception.ApplicationCore.Interfaces;
-using ProtocolReception.ApplicationCore.Services;
+using ProtocolReception.ApplicationCore.UseCases;
 using ProtocolReception.Infrastructure.Repositories.Interfaces;
 
 namespace IntegrationTests

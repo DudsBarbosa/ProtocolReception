@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ProtocolReception.ApplicationCore.Interfaces;
-using ProtocolReception.ApplicationCore.Services;
+using ProtocolReception.ApplicationCore.UseCases;
 using ProtocolReception.Infrastructure.Repositories;
 using ProtocolReception.Infrastructure.Repositories.Interfaces;
 using RabbitMQ.Client;
@@ -26,7 +26,7 @@ public class Program
             .AddScoped<ProtocolService>()
             .AddScoped<IProtocolRepository, ProtocolRepository>()
             .AddScoped<IProtocolLogRepository, ProtocolLogRepository>()
-            .AddDbContext<ProtocolContext>(options => options.UseSqlServer("Server=host.docker.internal,1433;Database=Documents;User Id=;Password=;TrustServerCertificate=True"));
+            .AddDbContext<ProtocolContext>(options => options.UseSqlServer("Server=host.docker.internal,1433;Database=Documents;User Id=sa;Password=SqlWz24zr@$;TrustServerCertificate=True"));
 
         var serviceProvider = services.BuildServiceProvider();
         _logService = serviceProvider.GetService<ProtocolLogService>();
@@ -35,7 +35,7 @@ public class Program
         _protocolRepository = serviceProvider.GetService<IProtocolRepository>();
         _protocolContext = serviceProvider.GetService<ProtocolContext>();
 
-
+        var protocolLogService = serviceProvider.GetService<ProtocolLogService>();
         var factory = new ConnectionFactory { HostName = "host.docker.internal" };
         using var connection = factory.CreateConnection();
         using var channel = connection.CreateModel();
@@ -56,22 +56,25 @@ public class Program
             message = Encoding.UTF8.GetString(body);
 
             Console.WriteLine($" [x] Received {message}");
+
+
+
+            // Persist on SQLServer database
+            if (protocolLogService != null)
+            {
+                Console.WriteLine($" [x] Managing message...");
+                var task = protocolLogService.ManageConsumerMessage(message);
+                Console.WriteLine($" [x] Managed message: {task.Result}");
+            }
+            else
+            {
+                Console.WriteLine(" [x] ProtocolLogService is not available.");
+            }
         };
 
         channel.BasicConsume(queue: "protocols",
                              autoAck: true,
                              consumer: consumer);
-
-        var protocolLogService = serviceProvider.GetService<ProtocolLogService>();
-        if (protocolLogService != null)
-        {
-            var task = protocolLogService.ManageConsumerMessage(message);
-            Console.WriteLine($" [x] Managed message: {task.Result}");
-        }
-        else
-        {
-            Console.WriteLine(" [x] ProtocolLogService is not available.");
-        }
 
         Console.WriteLine(" Press [enter] to exit.");
         Console.ReadLine();

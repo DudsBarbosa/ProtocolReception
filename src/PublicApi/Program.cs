@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using ProtocolReception.ApplicationCore.Interfaces;
-using ProtocolReception.ApplicationCore.Services;
+using ProtocolReception.ApplicationCore.UseCases;
 using ProtocolReception.Infrastructure.Repositories;
 using ProtocolReception.Infrastructure.Repositories.Interfaces;
 using System.Text;
@@ -45,7 +46,30 @@ namespace ProtocolReception.PublicApi
 
             builder.Services.AddEndpointsApiExplorer();
             // Swagger
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options => options.AddSecurityDefinition(name: "Bearer", securityScheme: new OpenApiSecurityScheme
+            {
+                Name = "Authorization",
+                Description = "Enter the Bearer Authorization string as following: `Bearer Generated-JWT-Token`",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "Bearer"
+            }));
+            builder.Services.AddSwaggerGen(options => options.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Name = "Bearer",
+                        In = ParameterLocation.Header,
+                        Reference = new OpenApiReference
+                        {
+                            Id = "Bearer",
+                            Type = ReferenceType.SecurityScheme
+                        }
+                    },
+                    new List<string>()
+                }
+            }));
 
             // Dababase
             builder.Services.AddDbContext<ProtocolContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"),

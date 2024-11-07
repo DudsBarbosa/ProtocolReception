@@ -1,4 +1,4 @@
-﻿namespace ProtocolReception.PublicApi.Models
+﻿namespace ProtocolReception.PublicApi.ViewModels
 {
     public class LoginModel
     {

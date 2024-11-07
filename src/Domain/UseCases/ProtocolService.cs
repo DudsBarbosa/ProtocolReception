@@ -1,7 +1,7 @@
 ﻿using ProtocolReception.ApplicationCore.Entities;
 using ProtocolReception.Infrastructure.Repositories.Interfaces;
 
-namespace ProtocolReception.ApplicationCore.Services
+namespace ProtocolReception.ApplicationCore.UseCases
 {
     public class ProtocolService
     {

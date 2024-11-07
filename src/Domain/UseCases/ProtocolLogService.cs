@@ -4,7 +4,7 @@ using ProtocolReception.ApplicationCore.Interfaces;
 using ProtocolReception.Infrastructure.Repositories.Interfaces;
 using System.Text;
 
-namespace ProtocolReception.ApplicationCore.Services
+namespace ProtocolReception.ApplicationCore.UseCases
 {
     public class ProtocolLogService
     {
